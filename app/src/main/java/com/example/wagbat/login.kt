@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import android.widget.Toast.LENGTH_LONG
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.Firebase
@@ -28,16 +29,15 @@ class login : AppCompatActivity() {
             auth.signInWithEmailAndPassword(emailTxt, passwordTxt)
                 .addOnCompleteListener(this) { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(this, "Loged in successfully", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "Loged in successfully", LENGTH_LONG).show()
                         val user = auth.currentUser
                         var intent = Intent(this, homePage::class.java)
                         intent.putExtra("user", user)
                         startActivity(intent)
                     } else {
-                        Toast.makeText(this, "FAILD", Toast.LENGTH_LONG).show()
+                        Toast.makeText(this, "FAILD", LENGTH_LONG).show()
                     }
                 }
         }
-
     }
 }
