@@ -1,5 +1,5 @@
 package com.example.wagbat
-class MyResturantData (
+data class MyResturantData (
     var ResturantName: String,
     var ResturantImage: Int
 ) {
