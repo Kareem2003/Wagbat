@@ -59,4 +59,17 @@
         android:textSize="20sp"
         />
 
+    <Button
+        android:id="@+id/goLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hava an account? Login"
+        android:layout_below="@+id/signupBtn"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#fff"
+        android:textColor="@color/black"
+        android:layout_marginTop="60dp"
+        android:textSize="20sp"
+        />
+
 </RelativeLayout>

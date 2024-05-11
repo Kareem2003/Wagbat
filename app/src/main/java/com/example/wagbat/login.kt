@@ -22,6 +22,12 @@ class login : AppCompatActivity() {
         var email = findViewById<EditText>(R.id.email)
         var password = findViewById<EditText>(R.id.password)
         var loginBtn = findViewById<Button>(R.id.loginBtn)
+        var goSignup = findViewById<Button>(R.id.goSignup)
+
+        goSignup.setOnClickListener {
+            var intent = Intent(this, Signup::class.java)
+            startActivity(intent)
+        }
 
         loginBtn.setOnClickListener{
             var emailTxt = email.text.toString()

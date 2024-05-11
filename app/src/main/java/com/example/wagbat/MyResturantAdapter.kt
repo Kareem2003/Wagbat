@@ -19,7 +19,7 @@ class MyResturantAdapter(private var myResturantData: Array<MyResturantData>, pr
         var textViewName: TextView = itemView.findViewById(R.id.textName)
     }
         fun setfilterlist(myResturantData: List<MyResturantData>){
-            this.myResturantData = myResturantData
+            this.myResturantData = myResturantData.toTypedArray()
             notifyDataSetChanged()
         }
 
