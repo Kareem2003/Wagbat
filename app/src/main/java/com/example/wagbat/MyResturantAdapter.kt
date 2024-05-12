@@ -8,20 +8,20 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
-import java.util.ArrayList
+import com.squareup.picasso.Picasso
 
 class MyResturantAdapter(private var myResturantData: Array<MyResturantData>, private val context: Context) :
     RecyclerView.Adapter<MyResturantAdapter.ViewHolder>() {
-
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var ResturantImage: ImageView = itemView.findViewById(R.id.imageview)
         var textViewName: TextView = itemView.findViewById(R.id.textName)
     }
-        fun setfilterlist(myResturantData: List<MyResturantData>){
-            this.myResturantData = myResturantData.toTypedArray()
-            notifyDataSetChanged()
-        }
+
+    fun setfilterlist(myResturantData: List<MyResturantData>) {
+        this.myResturantData = myResturantData.toTypedArray()
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -31,17 +31,15 @@ class MyResturantAdapter(private var myResturantData: Array<MyResturantData>, pr
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val myResturantDataList = myResturantData[position]
-        holder.textViewName.text = myResturantDataList.ResturantName
-        holder.ResturantImage.setImageResource(myResturantDataList.ResturantImage)
+        holder.textViewName.text = myResturantDataList.name
+        Picasso.get().load(myResturantDataList.photoUrl).into(holder.ResturantImage)
 
         holder.itemView.setOnClickListener {
-            Toast.makeText(context, myResturantDataList.ResturantName, Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, myResturantDataList.name, Toast.LENGTH_SHORT).show()
         }
     }
 
     override fun getItemCount(): Int {
         return myResturantData.size
     }
-
-
 }

@@ -1,6 +1,5 @@
 package com.example.wagbat
-data class MyResturantData (
-    var ResturantName: String,
-    var ResturantImage: Int
-) {
-}
+data class MyResturantData(
+    val name: String,
+    val photoUrl: String
+)
