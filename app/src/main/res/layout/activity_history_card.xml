@@ -5,8 +5,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MyOrdersCard">
-
+    tools:context=".history_card">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -75,7 +74,7 @@
             </LinearLayout>
 
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>

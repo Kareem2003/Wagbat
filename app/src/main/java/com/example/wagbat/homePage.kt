@@ -1,5 +1,7 @@
 package com.example.wagbat
 
+import UserData
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -8,8 +10,11 @@ import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import com.google.firebase.database.*
 import java.util.Locale
+import com.example.wagbat.databinding.ActivityHomePageBinding
 
 class homePage : AppCompatActivity() {
+
+    private lateinit var binding:ActivityHomePageBinding
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView: SearchView
@@ -23,6 +28,31 @@ class homePage : AppCompatActivity() {
         setContentView(R.layout.activity_home_page)
         recyclerView = findViewById(R.id.recyclerView)
         searchView = findViewById(R.id.searchView)
+
+        binding = ActivityHomePageBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
+        binding.bottomNavigation.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.cart -> {
+                    val intent = Intent(this, CartPage::class.java)
+                    startActivity(intent)
+                    true // Return true to indicate that the listener has consumed the event
+                }
+                R.id.profile -> {
+                    val intent = Intent(this, UserData::class.java)
+                    startActivity(intent)
+                    true
+                }
+                R.id.home -> {
+                    val intent = Intent(this, homePage::class.java)
+                    startActivity(intent)
+                    true
+                }
+                else -> false // Return false for all other items to indicate that the event has not been consumed
+            }
+        }
+
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
