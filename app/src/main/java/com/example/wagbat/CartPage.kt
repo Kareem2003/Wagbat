@@ -13,33 +13,26 @@ import java.util.Locale
 
 class CartPage : AppCompatActivity() {
 
-//    private lateinit var recyclerView: RecyclerView
-//
-//    private lateinit var MyResturantAdapter: MyResturantAdapter
-//    private var MyResturantData = ArrayList<MyResturantData>()
-//
-//    override fun onCreate(savedInstanceState: Bundle?) {
-//        super.onCreate(savedInstanceState)
-//        setContentView(R.layout.activity_cart)
-//        recyclerView = findViewById(R.id.recyclerView)
-//
-//
-//        recyclerView.setHasFixedSize(true)
-//        recyclerView.layoutManager = LinearLayoutManager(this)
-//
-//        val MyResturantData = arrayOf(
-//
-//            MyResturantData("Karam El Sham" , R.drawable.img),
-//
-//            )
-//
-//        val MyResturantAdapter = MyResturantAdapter(MyResturantData, this)
-//        recyclerView.adapter = MyResturantAdapter
-//
-//
-//
-//
-//    }
+    private lateinit var recyclerView: RecyclerView
+
+    private lateinit var MyResturantAdapter: MyResturantAdapter
+    private var MyResturantData = ArrayList<MyResturantData>()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_cart)
+        recyclerView = findViewById(R.id.recyclerView)
 
 
+        recyclerView.setHasFixedSize(true)
+        recyclerView.layoutManager = LinearLayoutManager(this)
+
+        val MyResturantData = arrayOf(
+
+            MyResturantData("Karam El Sham", R.drawable.img.toString()),
+
+            )
+        val MyResturantAdapter = MyResturantAdapter(MyResturantData, this)
+        recyclerView.adapter = MyResturantAdapter
+    }
 }

@@ -9,12 +9,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp">
 
-
-
         <ImageView
             android:id="@+id/img"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="100dp"
+            android:paddingRight="300dp"
+            android:scaleType="centerCrop"
             android:src="@drawable/img"/>
 
         <TextView
@@ -47,9 +47,5 @@
             android:layout_marginTop="100dp"/>
 
     </RelativeLayout>
-
-
-
-
 
 </LinearLayout>
