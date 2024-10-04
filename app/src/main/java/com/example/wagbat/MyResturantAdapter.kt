@@ -13,9 +13,22 @@ import com.squareup.picasso.Picasso
 class MyResturantAdapter(private var myResturantData: Array<MyResturantData>, private val context: Context) :
     RecyclerView.Adapter<MyResturantAdapter.ViewHolder>() {
 
+    // Define a click listener interface
+    interface OnRestaurantClickListener {
+        fun onRestaurantClick(restaurant: MyResturantData)
+    }
+
+    // Initialize listener
+    private lateinit var listener: OnRestaurantClickListener
+
+    // Setter method for listener
+    fun setOnRestaurantClickListener(listener: OnRestaurantClickListener) {
+        this.listener = listener
+    }
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var ResturantImage: ImageView = itemView.findViewById(R.id.imageview)
-        var textViewName: TextView = itemView.findViewById(R.id.textName)
+        var textViewName: TextView = itemView.findViewById(R.id.dishName)
     }
 
     fun setfilterlist(myResturantData: List<MyResturantData>) {
@@ -35,7 +48,8 @@ class MyResturantAdapter(private var myResturantData: Array<MyResturantData>, pr
         Picasso.get().load(myResturantDataList.photoUrl).into(holder.ResturantImage)
 
         holder.itemView.setOnClickListener {
-            Toast.makeText(context, myResturantDataList.name, Toast.LENGTH_SHORT).show()
+            // Notify listener when item is clicked
+            listener.onRestaurantClick(myResturantDataList)
         }
     }
 

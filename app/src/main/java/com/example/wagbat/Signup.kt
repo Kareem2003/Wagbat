@@ -16,9 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ValueEventListener
-
 class Signup : AppCompatActivity() {
-    private lateinit var auth: FirebaseAuth
     private lateinit var firebaseDatabase: FirebaseDatabase
     private lateinit var database: DatabaseReference
 
@@ -26,50 +24,53 @@ class Signup : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContentView(R.layout.activity_signup)
-        // define database functions
-        auth = Firebase.auth
         firebaseDatabase = FirebaseDatabase.getInstance()
         database = firebaseDatabase.reference.child("Users")
 
-        var email = findViewById<EditText>(R.id.email)
-        var fullName = findViewById<EditText>(R.id.FullNAme)
-        var password = findViewById<EditText>(R.id.password)
-        var signupBtn = findViewById<Button>(R.id.signupBtn)
-        var goLogin = findViewById<Button>(R.id.goLogin)
+        // Find views
+        val emailEditText = findViewById<EditText>(R.id.email)
+        val fullNameEditText = findViewById<EditText>(R.id.FullNAme)
+        val passwordEditText = findViewById<EditText>(R.id.password)
+        val signupBtn = findViewById<Button>(R.id.signupBtn)
+        val goLoginBtn = findViewById<Button>(R.id.goLogin)
 
-        goLogin.setOnClickListener {
-            var intent = Intent(this, login::class.java)
+        goLoginBtn.setOnClickListener {
+            val intent = Intent(this, login::class.java)
             startActivity(intent)
         }
 
         signupBtn.setOnClickListener{
-            var fullnameTxt = fullName.text.toString()
-            var emailTxt = email.text.toString()
-            var passwordTxt = password.text.toString()
+            val fullName = fullNameEditText.text.toString()
+            val email = emailEditText.text.toString()
+            val password = passwordEditText.text.toString()
 
-            if (fullnameTxt.isEmpty() || emailTxt.isEmpty() || passwordTxt.isEmpty()) {
+            // Validate fields
+            if (fullName.isEmpty() || email.isEmpty() || password.isEmpty()) {
                 Toast.makeText(this, "Please fill in all fields", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            this@Signup.database.orderByChild("email").equalTo(emailTxt).addListenerForSingleValueEvent(object : ValueEventListener{
-                override fun onDataChange(datasnapshot: DataSnapshot) {
-                    if (!datasnapshot.exists()) {
-                        val id = this@Signup.database.push().key
-                        val userData = UserData(id, fullnameTxt, emailTxt, passwordTxt)
-                        this@Signup.database.child(id!!).setValue(userData)
-                        Toast.makeText(this@Signup, "Signup successfully", Toast.LENGTH_LONG).show()
-                        val login_page = Intent(this@Signup, login::class.java)
-                        startActivity(login_page)
+            // Check if email already exists
+            database.orderByChild("email").equalTo(email).addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    if (!dataSnapshot.exists()) {
+                        // Email does not exist, create new user
+                        val userId = database.push().key!!
+                        val userData = UserData(userId, fullName, email, password)
+                        database.child(userId).setValue(userData)
+                        Toast.makeText(this@Signup, "Signup successful", Toast.LENGTH_LONG).show()
+                        val loginIntent = Intent(this@Signup, login::class.java)
+                        startActivity(loginIntent)
                         finish()
                     } else {
-                        // Handle the case where the email already exists
+                        // Email already exists
                         Toast.makeText(this@Signup, "Email already exists", Toast.LENGTH_LONG).show()
                     }
                 }
 
-                override fun onCancelled(error: DatabaseError) {
-                    // Empty implementation or handle errors as needed
+                override fun onCancelled(databaseError: DatabaseError) {
+                    // Handle database error
+                    Toast.makeText(this@Signup, "Database error: ${databaseError.message}", Toast.LENGTH_LONG).show()
                 }
             })
         }

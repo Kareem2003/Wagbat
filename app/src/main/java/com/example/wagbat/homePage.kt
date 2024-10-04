@@ -1,18 +1,22 @@
 package com.example.wagbat
 
+import android.content.Intent
+import android.os.Bundle
+import android.widget.Button
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import android.os.Bundle
-import android.widget.Toast
-import androidx.appcompat.widget.SearchView
 import com.google.firebase.database.*
-import java.util.Locale
+import java.util.*
 
-class homePage : AppCompatActivity() {
+class homePage : AppCompatActivity(), MyResturantAdapter.OnRestaurantClickListener {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var searchView: SearchView
+    private lateinit var goToCartPage: Button
+    private lateinit var goToProfilePage: Button
     private lateinit var myResturantAdapter: MyResturantAdapter
     private var myResturantData: Array<MyResturantData> = emptyArray() // Initialize with an empty array
 
@@ -23,6 +27,18 @@ class homePage : AppCompatActivity() {
         setContentView(R.layout.activity_home_page)
         recyclerView = findViewById(R.id.recyclerView)
         searchView = findViewById(R.id.searchView)
+        goToCartPage = findViewById(R.id.goToCartPage)
+        goToProfilePage = findViewById(R.id.goToProfilePage)
+
+        goToCartPage.setOnClickListener{
+            val intent = Intent(this@homePage, CartPage::class.java)
+            startActivity(intent)
+        }
+
+        goToProfilePage.setOnClickListener{
+            val intent = Intent(this@homePage, ProfilePage::class.java)
+            startActivity(intent)
+        }
 
         recyclerView.setHasFixedSize(true)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -33,26 +49,20 @@ class homePage : AppCompatActivity() {
         // Retrieve data from Firebase Database
         database.addValueEventListener(object : ValueEventListener {
             override fun onDataChange(dataSnapshot: DataSnapshot) {
-                Toast.makeText(this@homePage, "Enter onDataChange", Toast.LENGTH_SHORT).show()
-
                 // Clear existing data from MyResturantData array
                 val list = ArrayList<MyResturantData>()
                 for (snapshot in dataSnapshot.children) {
+                    val ID = snapshot.child("id").getValue(String::class.java)
                     val name = snapshot.child("name").getValue(String::class.java)
                     val photoUrl = snapshot.child("photo").getValue(String::class.java)
                     if (name != null && photoUrl != null) {
-                        list.add(MyResturantData(name, photoUrl))
+                        list.add(MyResturantData(ID, name, photoUrl))
                     }
                 }
                 myResturantData = list.toTypedArray()
-                for (restaurant in myResturantData) {
-                    Toast.makeText(this@homePage, "Restaurant Name: ${restaurant.name}", Toast.LENGTH_SHORT).show()
-                }
                 myResturantAdapter = MyResturantAdapter(myResturantData, this@homePage)
+                myResturantAdapter.setOnRestaurantClickListener(this@homePage)
                 recyclerView.adapter = myResturantAdapter
-
-                Toast.makeText(this@homePage, "Exit onDataChange", Toast.LENGTH_SHORT).show()
-
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
@@ -76,7 +86,7 @@ class homePage : AppCompatActivity() {
         if (query != null) {
             val filteredList = ArrayList<MyResturantData>()
             for (i in myResturantData) {
-                if (i.name.lowercase(Locale.ROOT).contains(query)) {
+                if (i.name.lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT))) {
                     filteredList.add(i)
                 }
             }
@@ -86,5 +96,15 @@ class homePage : AppCompatActivity() {
                 myResturantAdapter.setfilterlist(filteredList)
             }
         }
+    }
+
+    // Click listener implementation
+    override fun onRestaurantClick(restaurant: MyResturantData) {
+        // Start DetailsPage activity with the selected restaurant's data
+        val intent = Intent(this, DetailsPage::class.java)
+        intent.putExtra("id", restaurant.ID)
+        intent.putExtra("name", restaurant.name)
+        intent.putExtra("photoUrl", restaurant.photoUrl)
+        startActivity(intent)
     }
 }
