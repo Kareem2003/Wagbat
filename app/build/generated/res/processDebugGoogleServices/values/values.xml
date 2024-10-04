@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="gcm_defaultSenderId" translatable="false">364024226693</string>
+    <string name="google_api_key" translatable="false">AIzaSyAWfv_Nf4aDPW0qcthFWX67lj7QximverE</string>
+    <string name="google_app_id" translatable="false">1:364024226693:android:ef21de5a9fcbea41cb1aec</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAWfv_Nf4aDPW0qcthFWX67lj7QximverE</string>
+    <string name="google_storage_bucket" translatable="false">wagbat-ad8b6.appspot.com</string>
+    <string name="project_id" translatable="false">wagbat-ad8b6</string>
+</resources>

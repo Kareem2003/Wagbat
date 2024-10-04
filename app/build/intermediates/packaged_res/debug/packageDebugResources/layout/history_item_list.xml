@@ -1,0 +1,41 @@
+<!-- history_item_list.xml -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="20dp"
+    >
+
+    <ImageView
+        android:id="@+id/historyImageview"
+        android:layout_width="120dp"
+        android:layout_height="150dp"
+        android:src="@drawable/img"
+        android:scaleType="centerCrop"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="30dp"
+        />
+
+    <!-- Other views for displaying history item details -->
+    <TextView
+        android:id="@+id/dishName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Dish Name"
+        android:layout_toRightOf="@+id/historyImageview"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:textSize="30sp"
+        />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Price"
+        android:layout_below="@+id/dishName"
+        android:layout_toRightOf="@+id/historyImageview"
+        android:layout_marginLeft="20dp"
+        android:textSize="20sp"
+        />
+
+</RelativeLayout>

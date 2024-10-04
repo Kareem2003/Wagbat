@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Signup">
+
+    <TextView
+        android:id="@+id/sign_in_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign Up"
+        android:textFontWeight="700"
+        android:textSize="25sp"
+        android:gravity="center"
+        android:layout_marginTop="110dp"
+        />
+    <EditText
+        android:id="@+id/FullNAme"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/sign_in_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:hint="Full Name"
+        >
+
+    </EditText>
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/FullNAme"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:hint="Email"
+        />
+
+    <EditText
+        android:id="@+id/password"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/email"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:hint="Password"
+        />
+
+    <Button
+        android:id="@+id/signupBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/password"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:text="Sign Up"
+        android:textSize="20sp"
+        />
+
+    <Button
+        android:id="@+id/goLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hava an account? Login"
+        android:layout_below="@+id/signupBtn"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="#fff"
+        android:textColor="@color/black"
+        android:layout_marginTop="60dp"
+        android:textSize="20sp"
+        />
+
+</RelativeLayout>
